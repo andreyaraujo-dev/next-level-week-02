@@ -46,7 +46,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
           // eslint-disable-next-line react/jsx-no-target-blank
           target="_blank"
           onClick={createNewConnection} 
-          href={`https://wa.me/${teacher.whatsapp}?text=Eu%20tenho%20interesse%20nas%suas%aulas.`}
+          href={`https://wa.me/${teacher.whatsapp}?text=Eu%20tenho%20interesse%20nas%20suas%20aulas.`}
         >
           <img src={whatsappIcon} alt="Whatsapp"/>
           Entrar em contato
