@@ -77,9 +77,15 @@ function TeacherList() {
       </PageHeader>
 
       <main>
-        {teachers.map((teacher: Teacher) => {
-          return <TeacherItem key={teacher.id} teacher={teacher}/>
-        })}
+        {
+          teachers.length > 0 ? 
+            teachers.map((teacher: Teacher) => {
+              return <TeacherItem key={teacher.id} teacher={teacher}/>
+            })
+          : <article id="area-info">
+              <p>Nenhum professor encontrado com sua pesquisa</p>
+            </article>
+        }
       </main>
     </div>
   )
