@@ -12,7 +12,7 @@ interface ScheduleItem {
 
 export default class UserController {
   async index(request: Request, response: Response) {
-    const id = request.headers.userid;
+    const id = request.userId;
 
     try {
       const user = await db('users').where('id', id).select('*');

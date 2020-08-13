@@ -11,17 +11,19 @@ export default class LoginController {
       const [user] = await db('users').select('*').where('email', email);
       if (!user) return response.status(400).json({error: 'User does not exists'});
 
-      bcrypt.compare(password, user.password, (err, isValid) => {
-        if (err) return response.status(400).json({error: err});
-        if (!isValid) return response.status(400).json({error: 'Password is invalid'});
+      const isValidPassword = await bcrypt.compare(password, user.password);
+      if (!isValidPassword) return response.status(401).json({error: 'Password is invalid'});
 
-        const userId = user.id;
-        const token = jwt.sign({userId}, 'KEYSECRET', {
-          expiresIn: 300
-        });
-
-        return response.status(200).json({userId, auth: true, token: token});
+      const token = jwt.sign({id: user.id}, 'KEYSECRET', {
+        expiresIn: '1d'
       });
+
+      delete user.password;
+      delete user.whatsapp;
+      delete user.bio;
+      delete user.name;
+      delete user.avatar;
+      return response.status(200).json({user, token});
     } catch (error) {
       return response.status(400).json({message: 'Unable to login, try again', error: error});
     }
